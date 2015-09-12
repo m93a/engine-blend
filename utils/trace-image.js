@@ -10,7 +10,7 @@ global.UTILS = global.UTILS||{};
 if(!UTILS.traceGrid) return requestAnimationFrame(function(){main(global)});
 
 
-var canvas = document.getElementById("canvas");
+var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 
 UTILS.traceImage = function splitImage(img,mapFn){
