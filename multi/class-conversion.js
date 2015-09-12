@@ -98,7 +98,7 @@
         throw new TypeError("can't convert "+like+" to THREE.Vector2");
       
       case "string":
-        var tmp = like..replace(";",",").split(",");
+        var tmp = like.replace(";",",").split(",");
         tmp[0]=+tmp[0]; tmp[1]=+tmp[1];
         
         if(tmp.length===2 && !isNaN(tmp[0]) && !isNaN(tmp[1]))
@@ -113,7 +113,5 @@
         throw new TypeError("can't convert "+like+" to THREE.Vector2");
     }
   };
-  
-  THREE.Vector2.representing = function(){};
   
 })(this);
