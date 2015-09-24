@@ -13,22 +13,35 @@ if(!UTILS.traceGrid) return requestAnimationFrame(function(){main(global)});
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 
-UTILS.traceImage = function splitImage(img,mapFn){
+UTILS.traceImage = function traceImage(img,mapFn){
   var parts = [];
   
-  canvas.width  = img.width ;
-  canvas.height = img.height;
+  var w = canvas.width  = img.width ;
+  var h = canvas.height = img.height;
   
   ctx.drawImage(img, 0, 0);
   
+  function gridMap(x,y){
+    return mapFn({
+      x:x,
+      y:y,
+      r:data[ 4*(x+y*w)+0 ],
+      g:data[ 4*(x+y*w)+1 ],
+      b:data[ 4*(x+y*w)+2 ],
+      a:data[ 4*(x+y*w)+3 ]
+    });
+  }
   
   while (true){
     var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     
     try{
-      var points = UTILS.traceGrid(mapFn);
+      var points = UTILS.traceGrid(gridMap);
     }catch(e){ break; }
     
+    parts.push(points);
+    
+    //TODO find holes
     
     ctx.beginPath();
     ctx.moveTo(points[0][0], points[0][1]);
